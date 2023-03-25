@@ -1,14 +1,15 @@
 ```mermaid
 sequenceDiagram 
     participant dev as developer
-    participant git as feature/hoge MS-A
-    participant act as github actions
-    participant ecr as ECR
-    participant cd as argo-cd
-    participant msa as Micro Service A(MS-A)
-    participant msb as Micro Service B(MS-B)
-    participant workflow as argo-workflow
-    participant it as integration test
+    participant git as feature(Micro Service A)
+    participant act as Github Actions
+    participant ecr as AWS ECR
+    participant cd as Argo CD
+    participant msa as Micro Service A
+    participant msb as Micro Service B
+    participant workflow as Argo Workflow
+    participant it as Integration Test
+    participant slack as Slack
 
     dev ->> git: push
     git ->> act: 
@@ -28,6 +29,8 @@ sequenceDiagram
     it ->> msa: test
     msa ->> msb: request
     msb -->> msa: response
-    msa -->> it: test ok
+    msa -->> it: test result
+    it -->> workflow: test result
+    workflow ->> slack: notify test result
     
 ```
