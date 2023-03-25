@@ -9,7 +9,6 @@ sequenceDiagram
     participant msb as Micro Service B
     participant workflow as Argo Workflow
     participant it as Integration Test
-    participant slack as Slack
 
     dev ->> git: push
     git ->> act: 
@@ -18,7 +17,7 @@ sequenceDiagram
     cd ->> ecr: ms image pull
     cd ->> msa: deploy
     msa->>workflow: webhook when initContainer
-    loop MS-A が依存するMSのhealthcheckがAll OK になるまで
+    loop 依存するMicroServiceのhealthcheckがAll OK になるまで
         workflow ->> msa: healthcheck
         workflow ->> msb: healthcheck
     end
@@ -31,6 +30,5 @@ sequenceDiagram
     msb -->> msa: response
     msa -->> it: test result
     it -->> workflow: test result
-    workflow ->> slack: notify test result
-    
+    workflow -->> dev: notify test result
 ```
