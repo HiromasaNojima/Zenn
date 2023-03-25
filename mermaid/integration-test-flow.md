@@ -2,7 +2,7 @@
 sequenceDiagram 
     participant dev as developer
     participant git as feature(Micro Service A)
-    participant act as Github Actions
+    participant act as GitHub Actions
     participant ecr as AWS ECR
     participant cd as Argo CD
     participant msa as Micro Service A
